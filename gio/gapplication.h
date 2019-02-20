@@ -234,6 +234,11 @@ void                    g_application_unmark_busy                       (GApplic
 GIO_AVAILABLE_IN_2_44
 gboolean                g_application_get_is_busy                       (GApplication             *application);
 
+GIO_AVAILABLE_IN_2_72
+void                    g_application_set_restart_data                  (GApplication             *application,
+                                                                         const gchar              *tag,
+                                                                         GVariant                 *data);
+
 GIO_AVAILABLE_IN_2_40
 void                    g_application_send_notification                 (GApplication             *application,
                                                                          const gchar              *id,

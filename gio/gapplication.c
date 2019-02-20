@@ -3136,5 +3136,51 @@ g_application_unbind_busy_property (GApplication *application,
   g_signal_handler_disconnect (object, handler_id);
 }
 
+/* Session handling {{{1 */
+
+/**
+ * g_application_set_restart_data:
+ * @application: a #GApplication
+ * @tag: (nullable): tag for versioning the data, or %NULL to not version it
+ * @data: (nullable): data to store for the next restart, or %NULL to clear it
+ *
+ * Set the restart data which will be used to restore the application’s state
+ * next time it’s restarted.
+ *
+ * Applications may be restarted after being interrupted by the system to save
+ * resources; or after they crash; or when restarting the computer. This list is
+ * not exhaustive.
+ *
+ * Applications which are not unique (%G_APPLICATION_NON_UNIQUE is set) do not
+ * support restart data, and it is an error to call this function for such
+ * applications.
+ *
+ * If @tag is specified, it will be stored alongside the data and returned when
+ * the data is restored. It can be used to detect incompatibilities between the
+ * software and the data. For example, by setting it to the software version, a
+ * restart of an upgraded software version using data stored by an older version
+ * can be detected and handled. No format is mandated for @tag, other than that,
+ * if non-%NULL, it must be non-empty and valid UTF-8.
+ *
+ * If @data is %NULL, any stored restart data will be cleared. @tag will be
+ * ignored.
+ *
+ * If @data is a floating #GVariant, it will be consumed.
+ *
+ *
+ * Since: 2.72
+ */
+void
+g_application_set_restart_data (GApplication *application,
+                                const gchar  *tag,
+                                GVariant     *data)
+{
+  g_return_if_fail (G_IS_APPLICATION (application));
+  g_return_if_fail (!(application->priv->flags & G_APPLICATION_NON_UNIQUE));
+  g_return_if_fail (tag == NULL || *tag != '\0');
+
+  g_application_impl_set_restart_data (application->priv->impl, tag, data);
+}
+
 /* Epilogue {{{1 */
 /* vim:set foldmethod=marker: */

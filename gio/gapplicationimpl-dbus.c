@@ -68,6 +68,7 @@ static const gchar org_gtk_Application_xml[] =
         "<arg type='i' name='exit-status' direction='out'/>"
       "</method>"
     "<property name='Busy' type='b' access='read'/>"
+    "<property name='RestartData' type='sv' access='read'/>"
     "</interface>"
   "</node>";
 
@@ -125,6 +126,9 @@ struct _GApplicationImpl
   gboolean         busy;
   gboolean         registered;
   GApplication    *app;
+
+  gchar           *restart_data_tag;  /* (owned) (nullable) */
+  GVariant        *restart_data;  /* (owned) (nullable) */
 };
 
 
@@ -151,14 +155,16 @@ g_application_impl_get_property (GDBusConnection *connection,
 }
 
 static void
-send_property_change (GApplicationImpl *impl)
+send_property_change (GApplicationImpl *impl,
+                      const char       *property_name,
+                      GVariant         *value)
 {
   GVariantBuilder builder;
 
   g_variant_builder_init (&builder, G_VARIANT_TYPE_ARRAY);
   g_variant_builder_add (&builder,
                          "{sv}",
-                         "Busy", g_variant_new_boolean (impl->busy));
+                         property_name, value);
 
   g_dbus_connection_emit_signal (impl->session_bus,
                                  NULL,
@@ -594,8 +600,25 @@ g_application_impl_set_busy_state (GApplicationImpl *impl,
   if (impl->busy != busy)
     {
       impl->busy = busy;
-      send_property_change (impl);
+      send_property_change (impl, "Busy", g_variant_new_boolean (impl->busy));
     }
+}
+
+void
+g_application_impl_set_restart_data (GApplicationImpl *impl,
+                                     const gchar      *tag,
+                                     GVariant         *data)
+{
+  g_clear_pointer (&impl->restart_data_tag, g_free);
+  g_clear_pointer (&impl->restart_data, g_variant_unref);
+
+  if (data != NULL && tag != NULL)
+    impl->restart_data_tag = g_strdup (tag);
+  if (data != NULL)
+    impl->restart_data = g_variant_ref_sink (data);
+
+  send_property_change (impl, "RestartData",
+                        g_variant_new ("sv", impl->restart_data_tag, impl->restart_data));
 }
 
 void
@@ -607,6 +630,9 @@ g_application_impl_destroy (GApplicationImpl *impl)
     g_object_unref (impl->session_bus);
 
   g_free (impl->object_path);
+
+  g_free (impl->restart_data_tag);
+  g_clear_pointer (&impl->restart_data, g_variant_unref);
 
   g_slice_free (GApplicationImpl, impl);
 }

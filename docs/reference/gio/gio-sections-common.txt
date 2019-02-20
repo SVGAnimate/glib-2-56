@@ -3322,6 +3322,8 @@ g_application_set_option_context_description
 g_application_set_default
 g_application_get_default
 <SUBSECTION>
+g_application_set_restart_data
+<SUBSECTION>
 g_application_mark_busy
 g_application_unmark_busy
 g_application_get_is_busy
