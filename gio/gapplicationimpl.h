@@ -63,6 +63,4 @@ const gchar *           g_application_impl_get_dbus_object_path         (GApplic
 
 void                    g_application_impl_set_busy_state               (GApplicationImpl   *impl,
                                                                          gboolean            busy);
-void                    g_application_impl_set_restart_data             (GApplicationImpl   *impl,
-                                                                         const gchar        *tag,
-                                                                         GVariant           *data);
+void                    g_application_impl_notify_restart_data_changed  (GApplicationImpl   *impl);
