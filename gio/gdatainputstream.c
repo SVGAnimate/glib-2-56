@@ -1128,7 +1128,7 @@ g_data_input_stream_read_finish (GDataInputStream  *stream,
  * @io_priority: the [I/O priority][io-priority] of the request
  * @cancellable: (nullable): optional #GCancellable object, %NULL to ignore.
  * @callback: (scope async): callback to call when the request is satisfied.
- * @user_data: (closure): the data to pass to callback function.
+ * @user_data: the data to pass to callback function.
  *
  * The asynchronous version of g_data_input_stream_read_line().  It is
  * an error to have two outstanding calls to this function.

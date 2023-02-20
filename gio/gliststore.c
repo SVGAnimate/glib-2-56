@@ -306,7 +306,7 @@ g_list_store_insert (GListStore *store,
  * @store: a #GListStore
  * @item: (type GObject): the new item
  * @compare_func: (scope call): pairwise comparison function for sorting
- * @user_data: (closure): user data for @compare_func
+ * @user_data: user data for @compare_func
  *
  * Inserts @item into @store at a position to be determined by the
  * @compare_func.
@@ -346,7 +346,7 @@ g_list_store_insert_sorted (GListStore       *store,
  * g_list_store_sort:
  * @store: a #GListStore
  * @compare_func: (scope call): pairwise comparison function for sorting
- * @user_data: (closure): user data for @compare_func
+ * @user_data: user data for @compare_func
  *
  * Sort the items in @store according to @compare_func.
  *
@@ -565,7 +565,7 @@ g_list_store_find_with_equal_func (GListStore *store,
  * @store: a #GListStore
  * @item: (type GObject) (nullable): an item
  * @equal_func: (scope call): A custom equality check function
- * @user_data: (closure): user data for @equal_func
+ * @user_data: user data for @equal_func
  * @position: (out) (optional): the first position of @item, if it was found.
  *
  * Like g_list_store_find_with_equal_func() but with an additional @user_data

@@ -764,7 +764,7 @@ lookup_by_name_finish_real (GResolver     *resolver,
  * @flags: extra #GResolverNameLookupFlags for the lookup
  * @cancellable: (nullable): a #GCancellable, or %NULL
  * @callback: (scope async): callback to call after resolution completes
- * @user_data: (closure): data for @callback
+ * @user_data: data for @callback
  *
  * Begins asynchronously resolving @hostname to determine its
  * associated IP address(es), and eventually calls @callback, which
@@ -795,7 +795,7 @@ g_resolver_lookup_by_name_with_flags_async (GResolver                *resolver,
  * @hostname: the hostname to look up the address of
  * @cancellable: (nullable): a #GCancellable, or %NULL
  * @callback: (scope async): callback to call after resolution completes
- * @user_data: (closure): data for @callback
+ * @user_data: data for @callback
  *
  * Begins asynchronously resolving @hostname to determine its
  * associated IP address(es), and eventually calls @callback, which
@@ -942,7 +942,7 @@ g_resolver_lookup_by_address (GResolver     *resolver,
  * @address: the address to reverse-resolve
  * @cancellable: (nullable): a #GCancellable, or %NULL
  * @callback: (scope async): callback to call after resolution completes
- * @user_data: (closure): data for @callback
+ * @user_data: data for @callback
  *
  * Begins asynchronously reverse-resolving @address to determine its
  * associated hostname, and eventually calls @callback, which must
@@ -1093,7 +1093,7 @@ g_resolver_lookup_service (GResolver     *resolver,
  * @domain: the DNS domain to look up the service in
  * @cancellable: (nullable): a #GCancellable, or %NULL
  * @callback: (scope async): callback to call after resolution completes
- * @user_data: (closure): data for @callback
+ * @user_data: data for @callback
  *
  * Begins asynchronously performing a DNS SRV lookup for the given
  * @service and @protocol in the given @domain, and eventually calls
@@ -1242,7 +1242,7 @@ g_resolver_lookup_records (GResolver            *resolver,
  * @record_type: the type of DNS record to look up
  * @cancellable: (nullable): a #GCancellable, or %NULL
  * @callback: (scope async): callback to call after resolution completes
- * @user_data: (closure): data for @callback
+ * @user_data: data for @callback
  *
  * Begins asynchronously performing a DNS lookup for the given
  * @rrname, and eventually calls @callback, which must call

@@ -459,7 +459,7 @@ async_fill_callback_wrapper (GObject      *source_object,
  * @io_priority: the [I/O priority][io-priority] of the request
  * @cancellable: (nullable): optional #GCancellable object
  * @callback: (scope async): a #GAsyncReadyCallback
- * @user_data: (closure): a #gpointer
+ * @user_data: a #gpointer
  *
  * Reads data into @stream's buffer asynchronously, up to @count size.
  * @io_priority can be used to prioritize reads. For the synchronous
